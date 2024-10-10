@@ -1,0 +1,56 @@
+
+LibraryMain
++ main(): void
+-bookDb: BookDatabase
++ LibrarySys()
+
+LibrarySys
++ImportBooks(filename: String): int
++AddBook(bookType: int, title: String, numPages: int, extrainfo: String); int
++ DisplayAll Books(): void
++ DisplayAll Books(bookType: int): void
++BorrowBook(bookld: int, borrower: String, numDays: int); int
++ ReturnBook(bookld: int): int
+
+BookDatabase
++ ARRAY POS BOOK TYPE: Int + ARRAY POS BOOK NAME: Int +ARRAY POS NUM PAGE: int + ARRAY POS INFO: Int +ADD BOOK SUCCESS: Int +ADD BOOK FAIL: int
+- allBooks: Book[]
++BookDatabase() -growBookArray(): void
+- randid(); int
++ GenNewBookld(): int +AddBook(filename: String): int +AddBook(newBook Book): int
++ NumBooks(): int
++ DeleteBook(pos: int): boolean
++ GetBookAt(pos: int): Book
+- isBCE: boolean
+
+History
++ History(bookid: int, title: String, numPages: int, isBCE: boolean)
+- genre: String
+
+NonFiction
++ NonFiction(bookld: int, title: String, numPages: int, genre: String)
+- level: int
+
+Novel
++ Novel(bookid: int, title: String, numPages: int, level: int)
+
+
+
+
+Book (Abstract Class)
++ HISTORY: int
++ NON FICTION: int
++ NOVEL: int bookld: int title: String
+isBorrowed: boolean numPages: int borrower String -dueDate: Date
++ Book()
++ Book(bookid: int, title: String, numPages: int) +IsBorrowed(): boolean
++ GetTitle(): String
++ GetNumPages(); int
++ GetBookld(): int
++ GetBorrower(): String
++SetBorrower(borrowerName: String): void
++ Return(): void
++ GetDueDate(): Date
++SetDueDate(date: Date); void
++ Borrow(borrowerName: String): boolean
++ Extrainfo(): String
