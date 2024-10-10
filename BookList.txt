@@ -1,0 +1,5 @@
+1, History, The History of Ancient Rome, 300, false, , 
+2, NonFiction, A Brief History of Time, 256, true, , 
+3, Novel, To Kill a Mockingbird, 281, false, , 
+4, History, Sapiens: A Brief History of Humankind, 498, false, , 
+5, Novel, 1984, 328, true, Alice, 2024-11-15

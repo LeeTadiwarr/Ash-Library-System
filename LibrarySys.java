@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+// import java.util.ArrayList;
+import java.io.File;
+import java.util.Scanner;
 
 public class LibrarySys {
     private BookDatabase bookDatabase;
@@ -8,10 +10,65 @@ public class LibrarySys {
         this.bookDatabase = new BookDatabase();
     }
 
-    // Method to import books from a file (stub; implementation can vary)
+    // Method to import books from a file
     public int importBooks(String filename) {
-        // Implementation for importing books from a file would go here
-        return BookDatabase.ADD_BOOK_FAIL; // Placeholder return value
+        try {
+            File file = new File(filename);
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] data = line.split(", ");
+
+                int bookId = Integer.parseInt(data[0]);
+                int bookType = getBookType(data[1]); // Assuming the second element is the book type
+                String title = data[2];
+                int numPages = Integer.parseInt(data[3]);
+                boolean isBCE = Boolean.parseBoolean(data[4]);
+                String borrower = data[5];
+                String dueDate = data[6];
+
+                Book newBook = null;
+                switch (bookType) {
+                    case 0: // History
+                        newBook = new History(bookId, title, numPages, isBCE, "History Genre");
+                        break;
+                    case 1: // NonFiction
+                        newBook = new NonFiction(bookId, title, numPages, "Some Genre", 1);
+                        break;
+                    case 2: // Novel
+                        newBook = new Novel(bookId, title, numPages, 3);
+                        break;
+                    default:
+                        continue; // Skip invalid book types
+                }
+
+                if (newBook != null) {
+                    newBook.setBorrower(borrower);
+                    newBook.setDueDate(java.sql.Date.valueOf(dueDate));
+                    bookDatabase.addBook(newBook);
+                }
+            }
+
+            scanner.close();
+            return BookDatabase.ADD_BOOK_SUCCESS; // Success
+        } catch (Exception e) {
+            e.printStackTrace();
+            return BookDatabase.ADD_BOOK_FAIL; // Failure
+        }
+    }
+
+    private int getBookType(String type) {
+        switch (type.toLowerCase()) {
+            case "history":
+                return 0;
+            case "nonfiction":
+                return 1;
+            case "novel":
+                return 2;
+            default:
+                return -1; // Invalid type
+        }
     }
 
     // Method to add a book
@@ -62,6 +119,7 @@ public class LibrarySys {
             if (book.getBookId() == bookId && !book.isBorrowed()) {
                 book.borrow(borrower);
                 // Optionally set the due date based on numDays
+                book.setDueDate(java.sql.Date.valueOf(java.time.LocalDate.now().plusDays(numDays)));
                 return 1; // Success
             }
         }

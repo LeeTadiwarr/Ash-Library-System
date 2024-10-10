@@ -33,12 +33,6 @@ public class BookDatabase {
         return randid();
     }
 
-    // Method to add a book from a file (stub; implementation can vary)
-    public int addBook(String filename) {
-        // Implementation for adding book from a file would go here
-        return ADD_BOOK_FAIL; // Placeholder return value
-    }
-
     // Method to add a new book object
     public int addBook(Book newBook) {
         if (bookCount >= allBooks.length) {

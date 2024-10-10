@@ -14,11 +14,12 @@ public abstract class Book {
     private String borrower;
     private Date dueDate;
 
-    // Constructor
+    // Default constructor
     public Book() {
-        // Default constructor
+        // Default constructor for subclasses
     }
 
+    // Parameterized constructor
     public Book(int bookId, String title, int numPages) {
         this.bookId = bookId;
         this.title = title;
@@ -65,7 +66,7 @@ public abstract class Book {
         if (!isBorrowed) {
             this.borrower = borrowerName;
             this.isBorrowed = true;
-            return true;
+            return true; // Successfully borrowed
         }
         return false; // Already borrowed
     }
@@ -74,9 +75,9 @@ public abstract class Book {
     public void returnBook() {
         this.isBorrowed = false;
         this.borrower = null;
-        this.dueDate = null;
+        this.dueDate = null; // Clear due date on return
     }
 
-    // Extra information method
-    public abstract String extraInfo(); // Abstract method to be implemented by subclasses
+    // Abstract method for extra information
+    public abstract String extraInfo(); // To be implemented by subclasses
 }
